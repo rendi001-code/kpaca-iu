@@ -3,7 +3,8 @@ const axios = require('axios');
 const app = express();
 
 const API_KEY = "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";
-const MODEL = "gemini-1.5-flash";
+// Model yang pasti ada dan ringan di OpenRouter
+const MODEL = "openai/gpt-3.5-turbo";
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
@@ -51,12 +52,10 @@ app.get('/', (req, res) => {
                 const teks = input.value.trim();
                 if(!teks) return;
 
-                // Tampilkan pesan kamu
                 tambah('kamu', teks);
                 input.value = '';
                 const idTunggu = tambah('ai', 'Sedang menjawab...');
 
-                // Kirim ke peladen
                 const res = await fetch('/tanya', {
                     method: 'POST',
                     headers: {'Content-Type': 'application/json'},
@@ -101,7 +100,7 @@ app.post('/tanya', async (req, res) => {
         const hasil = await axios.post('https://openrouter.ai/api/v1/chat/completions', {
             model: MODEL,
             messages: [
-                {role:'system', content:'Jawab dengan bahasa Indonesia yang sederhana dan jelas.'},
+                {role:'system', content:'Jawab selalu dalam Bahasa Indonesia yang jelas dan sederhana.'},
                 {role:'user', content: tanya}
             ]
         }, {
@@ -120,4 +119,3 @@ app.post('/tanya', async (req, res) => {
 
 app.listen(PORT, () => console.log(`Jalan di http://localhost:${PORT}`));
 module.exports = app;
-        
