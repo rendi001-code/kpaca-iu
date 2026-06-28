@@ -3,8 +3,8 @@ const axios = require('axios');
 const app = express();
 
 const API_KEY = "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";
-// Model yang pasti ada dan ringan di OpenRouter
-const MODEL = "openai/gpt-3.5-turbo";
+// Model yang pasti ada dan lancar di OpenRouter
+const MODEL = "meta-llama/llama-3-8b-instruct";
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
